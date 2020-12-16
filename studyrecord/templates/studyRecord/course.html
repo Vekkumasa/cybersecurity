@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title> Study record</title>
+    </head>
+
+    <body>
+        <p>User: {{ user.get_username }} -- <a href="\">Home</a></p>
+        <h2> {{ course.name }} info </h2>
+        
+        <p> {{ course.passed }} </p>
+        <p> {{ course.grade }}</p>
+        <p> {{ course.comments }}</p>
+
+        <form action="/course/{{course.pk}}/" method="GET">
+            <label for="pass">Course passed:</label>
+            <input type="checkbox" id="pass" name="passed" value="True">
+            <br>
+            <label for="grade">Course grade:</label>
+            <input type="number" id="grade" name="grade" min="1" max="5">
+            <br>
+            <label for="comm">Course comments:</label>
+            <br>
+            <textarea rows="10" cols="20" id="comm" name="comment"></textarea>         
+            <br>
+            <button type="submit" name="modify">Modify</button>
+        </form>
+
+        <form action="/course/{{course.pk}}/" method="GET">
+            <button type="submit" name="delete">Delete course</button>
+        </form>
+    </body>
+</html>

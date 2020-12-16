@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title> Study record</title>
+    </head>
+
+    <body>
+        <p>User: {{ user.get_username }} --<a href="\logout">Log out</a></p>
+
+        <h2>Own courses:</h2>
+        <tr><th>Course name ||</th> <th>Grade if passed:</th></tr>
+        <ul>
+            {% for course in courses %}               
+                <a href="/course/{{course.pk}}">{{ course.name }}</a>
+                {% if course.passed %}
+                    {{ course.grade }}
+                {% endif %}
+                <br>
+            {% endfor %}
+        </ul>
+
+        <h2>Add new course</h2>
+        <form action="/" method="POST">
+            {% csrf_token %}
+            <label for="name"> Course name: </label>
+            <input type="text" id="name" name="name"/>
+            <input type="submit" value="Add"/>
+        </form>
+
+        <h2> Search comments from a course </h2>
+        <form action="/" method="POST">
+            {% csrf_token %}
+            <label for="coursename">Course name: </label>
+            <input type="text" id="coursename" name="coursename">
+            <input type="submit" value="search">
+        </form>
+
+        <h2> Search result(s) </h2>
+        <ul>
+            {% for course in filtered %}
+                <b>{{ course.name }}</b> <br>
+                {{ course.comments|safe }}
+                <br>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
